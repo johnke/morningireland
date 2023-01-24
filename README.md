@@ -19,19 +19,17 @@ cd /var/www/sites/yoursite.com
 git clone https://github.com/johnke/morningireland.git
 ```
 
-Change the `LOCAL_URL` variable to the URL where you will be accessing the output.
-
 ## Usage
 
 ```bash
 cd /var/www/sites/yoursite.com/mornigngireland
-python morningireland.py > feed.xml
+LOCAL_URL="http://yoursite.com" python morningireland.py > feed.xml
 ```
 
 Alternatively, set up a cronjob to automatically update the feed.
 
 ```bash
-30 * * * * python /var/www/sites/yoursite.com/mornigngireland/morningireland.py > /var/www/sites/yoursite.com/mornigngireland/feed.xml
+30 * * * * LOCAL_URL="http://yoursite.com" python /var/www/sites/yoursite.com/mornigngireland/morningireland.py > /var/www/sites/yoursite.com/mornigngireland/feed.xml
 ```
 
 Add the podcast to your podcatcher by subscribing to <http://yoursite.com/morningireland/feed.xml>.

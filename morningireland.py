@@ -4,6 +4,8 @@
 
 """A script to scrape the Morning Ireland feed and extract the parts I care about"""
 
+import os
+import sys
 import re
 from datetime import datetime
 import requests
@@ -11,7 +13,12 @@ import xmltodict
 
 
 FEED_URL = "http://www.rte.ie/radio1/podcast/podcast_morningireland.xml"
-LOCAL_URL = "http://yoursite.com/"
+
+local_url = os.getenv('LOCAL_URL')
+if local_url is None:
+  print("Please run this script with the LOCAL_URL variable defined!")
+  print("LOCAL_URL='http://mysite.com' python morningireland.py")
+  sys.exit(1)
 
 r = requests.get(FEED_URL)
 rte_xml = r.text
@@ -41,10 +48,10 @@ output = f"""<?xml version="1.0" encoding="utf-8"?>
       <itunes:name>John Kelly</itunes:name>
       <itunes:email>johnke@gmail.com</itunes:email>
     </itunes:owner>
-    <itunes:image href="{LOCAL_URL}/morningireland/morning-ireland-450.jpg" />
+    <itunes:image href="{local_url}/morningireland/morning-ireland-450.jpg" />
     <lastBuildDate>{build_time}</lastBuildDate>
     <image>
-      <url>{LOCAL_URL}/morningireland/morning-ireland-144.jpg</url>
+      <url>{local_url}/morningireland/morning-ireland-144.jpg</url>
       <title>RTE - Morning Ireland</title>
       <link>http://www.rte.ie/radio1/morningireland/</link>
       <height>144</height>
